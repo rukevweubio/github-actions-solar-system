@@ -107,3 +107,24 @@ jobs:
           context: .
           push: true
           tags: ${{ vars.DOCKER_USERNAME }}/my-mongodb:${{ github.sha }}
+  Github:
+    runs-on: ubuntu-latest
+    needs: [unit-testing, docker]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github_repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN}}
+    
+      - name: GITHUB and Push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: false
+          tags: | 
+            ghcr.io/${{ github_repository_owner }}/my-mongodb:${{ github.sha }}
