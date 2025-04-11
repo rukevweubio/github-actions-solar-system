@@ -25,11 +25,7 @@ jobs:
           MONGO_URI: 'mongodb://localhost:27017/superData'
           MONGO_INITDB_ROOT_USERNAME: mongouser 
           MONGO_INITDB_ROOT_PASSWORD: mongopassword
-        options: >-
-          --health-cmd "mongo --username==mongouser  --password==mongopassword --eval 'db.adminCommand(\"ping\")'"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+        
           
         
     steps:
