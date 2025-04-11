@@ -26,7 +26,7 @@ jobs:
           MONGO_INITDB_ROOT_USERNAME: mongouser 
           MONGO_INITDB_ROOT_PASSWORD: mongopassword
         options: >-
-          --health-cmd "mongo --username ${{ env.mongouser }} --password ${{ env.mongopassword }} --eval 'db.adminCommand(\"ping\")'"
+          --health-cmd "mongo --username==mongouser  --password==mongopasswor ad --eval 'db.adminCommand(\"ping\")'"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
