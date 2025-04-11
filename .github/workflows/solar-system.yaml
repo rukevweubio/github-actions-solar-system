@@ -77,7 +77,7 @@ jobs:
             -e MONGO_USERNAME="${MONGO_USERNAME}" \
             -e MONGO_PASSWORD="${MONGO_PASSWORD}" \
             ${{ vars.DOCKER_USERNAME }}/my-mongodb:${{ github.sha }}
-            
+
       - name: Get Container IP Address
         id: get-container-ip
         run: |
@@ -100,3 +100,10 @@ jobs:
         with:
           name: container-ip
           path: ./container-ip.txt
+
+      - name: Build and Push to docker registry 
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ vars.DOCKER_USERNAME }}/my-mongodb:${{ github.sha }}
