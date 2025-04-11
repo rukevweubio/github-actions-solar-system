@@ -22,7 +22,7 @@ jobs:
         ports:
           - 27017:27017
         env:
-          MONGO_URI: mongodb+srv://localhost:27017/superData
+          MONGO_URI: 'mongodb://localhost:27017/superData'
           MONGO_INITDB_ROOT_USERNAME: mongouser 
           MONGO_INITDB_ROOT_PASSWORD: mongopassword
         options: >-
