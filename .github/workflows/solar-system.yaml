@@ -157,6 +157,6 @@ jobs:
       - name: Fetch kubectl details
         run: |
           echo "Fetching kubectl details..."
-          kubectl version --short
+          kubectl version 
           kubectl get nodes
           
