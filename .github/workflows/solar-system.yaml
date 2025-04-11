@@ -77,3 +77,26 @@ jobs:
             -e MONGO_USERNAME="${MONGO_USERNAME}" \
             -e MONGO_PASSWORD="${MONGO_PASSWORD}" \
             ${{ vars.DOCKER_USERNAME }}/my-mongodb:${{ github.sha }}
+            
+      - name: Get Container IP Address
+        id: get-container-ip
+        run: |
+          CONTAINER_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-mongodb-app)
+          echo "Container IP Address: $CONTAINER_IP"
+          echo "CONTAINER_IP=$CONTAINER_IP" >> $GITHUB_ENV
+
+      - name: Verify Docker Container
+        run: |
+          docker ps
+          curl http://localhost:3000/api/tasks || echo "API not responding"
+
+      - name: Export IP Address
+        run: |
+          echo "The container IP address is: ${{ env.CONTAINER_IP }}"
+          echo "${{ env.CONTAINER_IP }}" > ./container-ip.txt
+
+      - name: Upload IP Address as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: container-ip
+          path: ./container-ip.txt
