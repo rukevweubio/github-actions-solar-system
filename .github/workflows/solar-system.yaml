@@ -60,3 +60,20 @@ jobs:
             registry: docker.io
             username: ${{vars.DOCKER_USERNAME}}
             password: ${{secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: false
+          tags: ${{vars.DOCKER_USERNAME}}/my-mongodb:${{github.sha}}
+
+      - name: Load and Run Docker Image
+        run: |
+          docker images
+          docker run --name=my-mongodb-app -d \
+            -p "3000:3000" \
+            -e MONGO_URI="${{ env.MONGO_URI }}" \
+            -e MONGO_USERNAME="${{ env.MONGO_USERNAME }}" \
+            -e MONGO_PASSWORD="${{ secrets.MONGO_PASSWORD }}" \
+            ${{ vars.DOCKER_USERNAME }}/my-mongodb:${{ github.sha }
