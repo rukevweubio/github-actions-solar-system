@@ -1,45 +1,45 @@
-name: Kubernetes Deployment
-
-on:
-  push:
-    branches:
-      - main
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-    # Step 1: Checkout code from the repository
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    - name: Start Minikube
+      run: |
+        sudo apt-get update -q
+        sudo apt-get install -qy conntrack
+        curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+        sudo install minikube-linux-amd64 /usr/local/bin/minikube
+        minikube start --driver=docker
 
-    # Step 2: Set up Kubeconfig from secret
-    - name: Set up Kubeconfig
+    - name: Generate kubeconfig
       run: |
         mkdir -p ~/.kube
-        echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+        cat <<EOF > ~/.kube/config
+        apiVersion: v1
+        clusters:
+        - cluster:
+            certificate-authority: /home/codespace/.minikube/profiles/minikube/apiserver.crt
+            server: https://192.168.49.2:8443
+          name: minikube
+        contexts:
+        - context:
+            cluster: minikube
+            user: minikube-user
+          name: minikube
+        current-context: minikube
+        kind: Config
+        preferences: {}
+        users:
+        - name: minikube-user
+          user:
+            client-certificate: /home/codespace/.minikube/profiles/minikube/client.crt
+            client-key: /home/codespace/.minikube/profiles/minikube/client.key
+        EOF
 
-    # Step 3: Install kubectl
-    - name: Install kubectl
+    - name: Verify Cluster Connectivity
       run: |
-        curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-        chmod +x ./kubectl
-        sudo mv ./kubectl /usr/local/bin/kubectl
+        kubectl cluster-info
+        kubectl get nodes
 
-    # Step 4: Install Helm (optional, if you are using Helm charts for deployment)
-    - name: Install Helm
-      run: |
-        curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
-
-    # Step 5: Deploy to Kubernetes cluster
-    - name: Deploy to Kubernetes
-      run: |
-        kubectl apply -f kubernetes/deployment.yaml
-        kubectl apply -f kubernetes/service.yaml
-
-    # Step 6: Verify Deployment
-    - name: Check Deployment status
-      run: |
-        kubectl get deployments
-        kubectl get pods
+    # - name: Deploy Application
+    #   run: |
+    #     kubectl apply -f deployment.yaml
