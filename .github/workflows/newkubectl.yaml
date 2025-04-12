@@ -26,7 +26,7 @@ jobs:
         # Configure kubectl
         mkdir -p ~/.kube
         cp kubeconfig.yaml ~/.kube/config
-        echo "${{ secrets.KUBECONFIG }}" | base64 -d > ~/.kube/config
+        echo "${{ secrets.KUBECONFIG }}"  > ~/.kube/config
         
         # Verify connectivity
         kubectl cluster-info
