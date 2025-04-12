@@ -152,7 +152,7 @@ jobs:
       - name: Install kubectl
         uses: azure/setup-kubectl@v4
         with:
-          version: 'v1.31.0'
+          version: 'v1.26.0'
       
       
   
@@ -163,12 +163,7 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBECONFIG }}
           
-      - name: Set Up kubectl
-        run: |
-          echo "$KUBECONFIG" > kubeconfig.yaml
-          chmod 777 kubeconfig.yaml
-          mkdir -p ~/.kube
-          cp kubeconfig.yaml ~/.kube/config
+      
 
       - name: Verify kubectl Configuration
         run: |
