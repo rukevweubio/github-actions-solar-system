@@ -152,7 +152,7 @@ jobs:
       - name: Check if files exist
         run: |
           pwd
-          ls -l $HOME/.minikube/profiles/minikube
+          # ls -l $HOME/.minikube/profiles/minikube
 
 
 
