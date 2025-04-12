@@ -15,7 +15,7 @@ on:
 jobs:
   unit-testing:
     name: Unit Testing
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux]
     services:
       mongodb:
         image: mongo:latest
