@@ -152,7 +152,7 @@ jobs:
       - name: Install kubectl
         uses: azure/setup-kubectl@v4
         with:
-          version: 'v1.26.0'
+          version: 'latest'
       
       
   
