@@ -149,14 +149,6 @@ jobs:
         uses: actions/checkout@v4    
         
         
-      - name: Check if files exist
-        run: |
-          pwd
-          # ls -l $HOME/.minikube/profiles/minikube
-
-
-
-
 
       - name: Install kubectl
         uses: azure/setup-kubectl@v3 
@@ -167,16 +159,16 @@ jobs:
         uses: azure/k8s-set-context@v3
         with:
           method: kubeconfig
-          kubeconfig: ${{ secrets.KUBECONFIG }}
+          kubeconfig: ${{secrets.KUBECONFIG1}}
           
       
 
-      - name: Verify kubectl Configuration
-        run: |
-          kubectl config view
-          kubectl get nodes
-          kubectl version 
-          kubectl get nodes 
+      # - name: Verify kubectl Configuration
+      #   run: |
+      #     kubectl config view
+      #     kubectl get nodes
+      #     kubectl version 
+      #     kubectl get nodes 
 
    
           
