@@ -154,6 +154,9 @@ jobs:
         with:
           version: 'v1.31.0'
       
+      
+  
+      
       - name: use kubenatevi config
         uses: azure/k8s-set-context@v3
         with:
@@ -163,7 +166,7 @@ jobs:
       - name: Set Up kubectl
         run: |
           echo "$KUBECONFIG" > kubeconfig.yaml
-          chmod 600 kubeconfig.yaml
+          chmod 777 kubeconfig.yaml
           mkdir -p ~/.kube
           cp kubeconfig.yaml ~/.kube/config
 
