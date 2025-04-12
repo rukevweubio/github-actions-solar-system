@@ -159,6 +159,18 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBECONFIG }}
+          
+      - name: Set Up kubectl
+        run: |
+          echo "$KUBECONFIG" > kubeconfig.yaml
+          chmod 600 kubeconfig.yaml
+          mkdir -p ~/.kube
+          cp kubeconfig.yaml ~/.kube/config
+
+      - name: Verify kubectl Configuration
+        run: |
+          kubectl config view
+          kubectl get nodes
 
       - name: Fetch kubectl details
         run: |
