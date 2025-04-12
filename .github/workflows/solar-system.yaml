@@ -161,10 +161,13 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{secrets.KUBECONFIG1}}
           
-      - name: Verify kubectl Configuration
-        run: | 
+      - name: Set up and Verify kubeconfig
+        run: |
+          echo "${{ secrets.KUBECONFIG1 }}" > kubeconfig.yaml
+          export KUBECONFIG=$PWD/kubeconfig.yaml
           kubectl get nodes
           kubectl version 
+
           
 
    
