@@ -153,11 +153,11 @@ jobs:
         with:
           version: 'latest'
       
-      # - name: use kubenatevi config
-      #   uses: azure/k8s-set-context@v3
-      #   with:
-      #     method: kubeconfig
-      #     kubeconfig: ${{ secrets.KUBECONFIG }}
+      - name: Use Kubernetes Config
+        uses: azure/k8s-set-context@v3
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBECONFIG }}
           
       
 
