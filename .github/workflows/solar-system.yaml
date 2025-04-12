@@ -160,6 +160,14 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: ${{secrets.KUBECONFIG1}}
+
+      
+      - name: Install kubectl
+        run: |
+          curl -LO "https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x kubectl
+          sudo mv kubectl /usr/local/bin/
+
           
       - name: Set up and Verify kubeconfig
         run: |
