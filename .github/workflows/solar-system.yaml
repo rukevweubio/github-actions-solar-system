@@ -161,14 +161,11 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{secrets.KUBECONFIG1}}
           
-      
-
-      # - name: Verify kubectl Configuration
-      #   run: |
-      #     kubectl config view
-      #     kubectl get nodes
-      #     kubectl version 
-      #     kubectl get nodes 
+      - name: Verify kubectl Configuration
+        run: | 
+          kubectl get nodes
+          kubectl version 
+          
 
    
           
