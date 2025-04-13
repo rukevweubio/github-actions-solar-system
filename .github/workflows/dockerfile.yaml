@@ -157,10 +157,7 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBECONFIG1 }}
   
-      - name: Check File Path  
-        run: |
-          ls -la
-          pwd
+     
 		  
       - name: Set up Kubernetes cluster
         run: |
