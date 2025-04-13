@@ -160,6 +160,14 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: ${{secrets.KUBECONFIG1}}
+  
+      - name: check file path  
+        run: |
+          ls -la
+          pwd
+        # with:
+        #   method: kubeconfig
+        #   kubeconfig: ${{secrets.KUBECONFIG1}}
 
       
       - name: Install kubectl
