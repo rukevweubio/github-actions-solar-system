@@ -28,6 +28,10 @@ jobs:
         ls -la
         pwd
         date
+    - name: Set up Kubernetes cluster
+      run: |
+        minikube start
+        kubectl wait --for=condition=Ready nodes --all --timeout=300s
 
     # - name: Install kubectl manually
     #   run: |
