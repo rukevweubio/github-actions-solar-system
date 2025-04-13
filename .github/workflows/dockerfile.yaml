@@ -156,13 +156,11 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBECONFIG1 }}
-  
-     
 		  
       - name: Set up Kubernetes cluster
         run: |
-          minikube start
-          kubectl wait --for=condition=Ready nodes --all --timeout=300s
+            minikube start
+            kubectl wait --for=condition=Ready nodes --all --timeout=300s
 
       - name: Configure kubectl
         run: |
