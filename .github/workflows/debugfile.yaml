@@ -1,6 +1,6 @@
 name: Deploy with kubectl (manual setup)
 on:
-  pull:
+  push:
     branches: [ main, feature/workflow ]
   workflow_dispatch:
 
