@@ -1,4 +1,4 @@
-name: Solar System Workflow the  flow 
+name: Solar System Workflow
 
 on: 
   workflow_dispatch:
@@ -25,9 +25,7 @@ jobs:
           MONGO_URI: 'mongodb://localhost:27017/superData'
           MONGO_INITDB_ROOT_USERNAME: mongouser 
           MONGO_INITDB_ROOT_PASSWORD: mongopassword
-        
-          
-        
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -157,27 +155,25 @@ jobs:
         uses: azure/k8s-set-context@v3
         with:
           method: kubeconfig
-          kubeconfig: ${{secrets.KUBECONFIG1}}
+          kubeconfig: ${{ secrets.KUBECONFIG1 }}
   
-      - name: check file path  
+      - name: Check File Path  
         run: |
           ls -la
           pwd
 		  
-       - name: Set up Kubernetes cluster
-      run: |
-        minikube start
-        kubectl wait --for=condition=Ready nodes --all --timeout=300s
+      - name: Set up Kubernetes cluster
+        run: |
+          minikube start
+          kubectl wait --for=condition=Ready nodes --all --timeout=300s
 
+      - name: Configure kubectl
+        run: |
+          mkdir -p $HOME/.kube/
+          echo "${{ secrets.KUBE_CONFIG1 }}" > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
 
-    - name: Configure kubectl
-      run: |
-        mkdir -p $HOME/.kube/
-        echo "${{ secrets.KUBE_CONFIG1}}" > $HOME/.kube/config
-        chmod 600 $HOME/.kube/config
-
-    - name: Test kubectl
-      run: |
-        kubectl version
-        kubectl get nodes
-          
+      - name: Test kubectl
+        run: |
+          kubectl version
+          kubectl get nodes
