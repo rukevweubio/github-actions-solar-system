@@ -170,20 +170,20 @@ jobs:
         #   kubeconfig: ${{secrets.KUBECONFIG1}}
 
       
-      - name: Install kubectl
-        run: |
-          curl -LO https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl
-          chmod +x kubectl
-          sudo mv kubectl /usr/local/bin/
+      # - name: Install kubectl
+      #   run: |
+      #     curl -LO https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl
+      #     chmod +x kubectl
+      #     sudo mv kubectl /usr/local/bin/
 
 
           
-      - name: Set up and Verify kubeconfig
-        run: |
-          echo "${{ secrets.KUBECONFIG1 }}" > kubeconfig.yaml
-          export KUBECONFIG=$PWD/kubeconfig.yaml
-          kubectl get nodes
-          kubectl version 
+      # - name: Set up and Verify kubeconfig
+      #   run: |
+      #     echo "${{ secrets.KUBECONFIG1 }}" > kubeconfig.yaml
+      #     export KUBECONFIG=$PWD/kubeconfig.yaml
+      #     kubectl get nodes
+      #     kubectl version 
 
           
 
