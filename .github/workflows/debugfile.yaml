@@ -1,9 +1,8 @@
 name: Deploy with kubectl (manual setup)
 on:
   push:
-    branches: [ main, feature/workflow ]
+    branches: [main, feature/workflow]
   workflow_dispatch:
-
 
 jobs:
   deploy:
@@ -16,13 +15,11 @@ jobs:
       with:
         version: "latest"
 
-
     - name: Use Kubernetes Config
       uses: azure/k8s-set-context@v3
-       with:
-          method: kubeconfig
-          kubeconfig: ${{secrets.KUBECONFIG1}}
-
+      with: # Corrected the indentation here
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBECONFIG1 }}
 
     - name: Debug information
       run: |
@@ -31,7 +28,6 @@ jobs:
         ls -la
         pwd
         date
-        
 
     - name: Install kubectl manually
       run: |
@@ -45,7 +41,7 @@ jobs:
     - name: Configure kubectl
       run: |
         mkdir -p $HOME/.kube/
-        echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
+        echo "${{ secrets.KUBE_CONFIG1}}" > $HOME/.kube/config
         chmod 600 $HOME/.kube/config
 
     - name: Test kubectl
