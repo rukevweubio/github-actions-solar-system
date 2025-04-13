@@ -17,6 +17,13 @@ jobs:
         version: "latest"
 
 
+    - name: Use Kubernetes Config
+        uses: azure/k8s-set-context@v3
+        with:
+          method: kubeconfig
+          kubeconfig: ${{secrets.KUBECONFIG1}}
+
+
     - name: Debug information
       run: |
         echo "Current working directory: $(pwd)"
