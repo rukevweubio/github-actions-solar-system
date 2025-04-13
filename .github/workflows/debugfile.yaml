@@ -24,6 +24,8 @@ jobs:
         ls -la
         pwd
         date
+        cd ~/.minikube/profiles/minikube
+        ls -la
 
     # - name: Install kubectl manually
     #   run: |
