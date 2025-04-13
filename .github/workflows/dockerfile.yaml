@@ -1,7 +1,6 @@
 name: Solar System Workflow the flow
 
-on: 
-  
+on:   
   push:
     branches:
       - main
